@@ -177,6 +177,31 @@ body {
     border-radius: 50%;
 }
 
+.footer {
+    margin-top: 20px;
+    padding: 8px 20px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #00d2ff, #3a47d5);
+    color: white;
+    border-radius: 30px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px #00d2ff, 0 0 10px #3a47d5;
+    }
+    100% {
+        box-shadow: 0 0 15px #00d2ff, 0 0 25px #3a47d5;
+    }
+}
+
 /* Mobile Responsive */
 @media (max-width: 600px) {
     .main-title {
