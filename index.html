@@ -1,48 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>SENTEN AI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SENTEN AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+  <!-- Title Section -->
+  <div class="main-title-container">
+    <h1 class="main-title">SENTEN AI</h1>
+  </div>
 
-    <!-- Title Section -->
-    <div class="main-title-container">
-        <h1 class="main-title">SENTEN AI</h1>
+  <!-- Chat Container -->
+  <div class="chat-container">
+    <div class="ai-chat-box">
+      <img src="ai.png" alt="" id="aiImage" width="50" />
+      <div class="ai-chat-area">
+        Hello! How can I help you today?
+      </div>
     </div>
+  </div>
 
-    <!-- Chat Area -->
-    <div class="chat-container">
-        <div class="ai-chat-box">
-            <img src="ai.png" alt="AI Icon" id="aiImage" width="50">
-            <div class="ai-chat-area">
-                Hello! How can I help you today?
-            </div>
-        </div>
-    </div>
+  <!-- Prompt Area -->
+  <div class="prompt-area">
+    <input type="text" id="prompt" placeholder="Message...." />
+    <button id="image">
+      <img src="img.svg" alt="Upload" />
+      <input type="file" accept="image/*" hidden />
+    </button>
+    <button id="submit"><img src="submit.svg" alt="Send" /></button>
+  </div>
 
-    <!-- Input Area -->
-    <div class="prompt-area">
-        <input type="text" id="prompt" placeholder="Message...">
-        
-        <button id="image">
-            <img src="img.svg" alt="">
-            <input type="file" accept="image/*" hidden>
-        </button>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Made by Abhay Gupta</p>
+  </footer>
 
-        <button id="submit">
-            <img src="submit.svg" alt="">
-        </button>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-        <p>Made by Abhay Gupta</p>
-    </div>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
