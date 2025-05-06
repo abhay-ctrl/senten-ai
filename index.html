@@ -1,38 +1,48 @@
 <!DOCTYPE html>
-<html lang="english">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> SENTEN AI </title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SENTEN AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
- <!-- Title Section -->
-<div class="main-title-container">
-    <h1 class="main-title">SENTEN AI</h1>
-</div>
 
+    <!-- Title Section -->
+    <div class="main-title-container">
+        <h1 class="main-title">SENTEN AI</h1>
+    </div>
+
+    <!-- Chat Area -->
     <div class="chat-container">
-<div class="ai-chat-box">
-    <img src="ai.png" alt="" id="aiImage" width="50">
-    <div class="ai-chat-area">
-   Hello ! How Can I Help you Today.
+        <div class="ai-chat-box">
+            <img src="ai.png" alt="AI Icon" id="aiImage" width="50">
+            <div class="ai-chat-area">
+                Hello! How can I help you today?
+            </div>
+        </div>
     </div>
-    
-</div>
-    </div>
+
+    <!-- Input Area -->
     <div class="prompt-area">
-<input type="text" id="prompt" placeholder="Message....">
-<button id="image"><img src="img.svg"alt=""></button>
- <input type="file" accept="image/*" hidden></button>       
-<button id="submit"><img src="submit.svg"alt=""></button>
-</button>
+        <input type="text" id="prompt" placeholder="Message...">
+        
+        <button id="image">
+            <img src="img.svg" alt="">
+            <input type="file" accept="image/*" hidden>
+        </button>
+
+        <button id="submit">
+            <img src="submit.svg" alt="">
+        </button>
     </div>
-    <!-- Footer Section -->
-<div class="footer">
-    <p>Made by-Abhay Gupta</p>
-<script src="script.js"></script>
-</div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Made by Abhay Gupta</p>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
