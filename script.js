@@ -5,8 +5,7 @@ const imagebtn = document.querySelector("#image");
 const image = document.querySelector("#image img");
 const imageinput = document.querySelector("#image input");
 
-const Api_Url =
-  AIzaSyAsuVlPIGcLa9TOBvmXHqp7ExAyNGHtHRE
+const Api_Url = AIzaSyAsuVlPIGcLa9TOBvmXHqp7ExAyNGHtHRE
 
 let user = {
   message: null,
@@ -141,4 +140,5 @@ imageinput.addEventListener("change", () => {
 imagebtn.addEventListener("click", () => {
   imagebtn.querySelector("input").click();
 });
+
 
