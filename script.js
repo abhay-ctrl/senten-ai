@@ -5,7 +5,8 @@ const imagebtn = document.querySelector("#image");
 const image = document.querySelector("#image img");
 const imageinput = document.querySelector("#image input");
 
-const Api_Url = AIzaSyAsuVlPIGcLa9TOBvmXHqp7ExAyNGHtHRE
+// FIXED: correct API URL + inside quotes
+const Api_Url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAsuVlPIGcLa9TOBvmXHqp7ExAyNGHtHRE";
 
 let user = {
   message: null,
@@ -18,7 +19,6 @@ let user = {
 async function generateResponse(aiChatBox) {
   let text = aiChatBox.querySelector(".ai-chat-area");
 
-  // Build parts properly
   let parts = [{ text: user.message }];
 
   if (user.file.data) {
@@ -36,6 +36,7 @@ async function generateResponse(aiChatBox) {
     body: JSON.stringify({
       contents: [
         {
+          role: "user", // FIXED
           parts: parts,
         },
       ],
@@ -52,7 +53,7 @@ async function generateResponse(aiChatBox) {
       data.candidates?.[0]?.content?.parts?.[0]?.text ||
       "No response received from API.";
 
-    text.innerHTML = apiResponse.replace(/\*\*(.*?)\*\*/g, "$1").trim();
+    text.innerHTML = apiResponse.trim();
   } catch (error) {
     console.log(error);
     text.innerHTML = "Error fetching response.";
@@ -140,5 +141,3 @@ imageinput.addEventListener("change", () => {
 imagebtn.addEventListener("click", () => {
   imagebtn.querySelector("input").click();
 });
-
-
