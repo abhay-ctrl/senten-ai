@@ -5,7 +5,17 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+.developer-name {
+  font-weight: 600;
+  color: #00feba; /* matches your gradient theme */
+  cursor: pointer;
+  transition: all 0.3s;
+}
 
+.developer-name:hover {
+  color: #5b548a;
+  text-decoration: underline;
+}
 body {
   width: 100%;
   height: 100vh;
@@ -183,3 +193,4 @@ body {
     font-size: 12px;
   }
 }
+
