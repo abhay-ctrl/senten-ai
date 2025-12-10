@@ -6,7 +6,7 @@ const image = document.querySelector("#image img");
 const imageinput = document.querySelector("#image input");
 
 // FIXED: correct API URL + inside quotes
-const Api_Url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAsuVlPIGcLa9TOBvmXHqp7ExAyNGHtHRE";
+const Api_Url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyCvo3zB3Ury2BWgKodGMK4vR_jmvZodFh4"
 
 let user = {
   message: null,
@@ -141,3 +141,4 @@ imageinput.addEventListener("change", () => {
 imagebtn.addEventListener("click", () => {
   imagebtn.querySelector("input").click();
 });
+
