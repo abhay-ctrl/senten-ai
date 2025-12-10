@@ -5,9 +5,19 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+.footer {
+  text-align: center;
+  padding: 12px 10px;
+  font-size: 14px;
+  background-color: #2d2d2d;
+  color: #ccc;
+  flex-shrink: 0;
+  word-wrap: break-word; /* ensures text wraps on small screens */
+}
+
 .developer-name {
   font-weight: 600;
-  color: #00feba; /* matches your gradient theme */
+  color: #00feba; /* matches gradient theme */
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -15,6 +25,19 @@
 .developer-name:hover {
   color: #5b548a;
   text-decoration: underline;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .footer {
+    font-size: 12px;
+    padding: 10px 8px;
+  }
+
+  .developer-name {
+    display: block; /* moves name to next line if space is tight */
+    margin-top: 4px;
+  }
 }
 body {
   width: 100%;
@@ -193,4 +216,5 @@ body {
     font-size: 12px;
   }
 }
+
 
