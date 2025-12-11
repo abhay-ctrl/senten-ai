@@ -15,6 +15,7 @@
 
   <main class="chat-area" id="chatArea">
     <div class="message ai">
+      <img src="ai.png" class="avatar">
       <div class="bubble">
         Hello! I am SENTEN AI. How can I help you today?
       </div>
@@ -31,10 +32,48 @@
   </footer>
 
   <script>
-    // Auto-scroll when keyboard appears
+    const chatArea = document.getElementById("chatArea");
     const prompt = document.getElementById("prompt");
+    const sendBtn = document.getElementById("sendBtn");
+
+    function addUserMessage(text) {
+      const msg = document.createElement("div");
+      msg.className = "message user";
+      msg.innerHTML = `
+        <div class="bubble">${text}</div>
+        <img src="user.png" class="avatar">
+      `;
+      chatArea.appendChild(msg);
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    function addAIMessage(text) {
+      const msg = document.createElement("div");
+      msg.className = "message ai";
+      msg.innerHTML = `
+        <img src="ai.png" class="avatar">
+        <div class="bubble">${text}</div>
+      `;
+      chatArea.appendChild(msg);
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    sendBtn.addEventListener("click", () => {
+      const text = prompt.value.trim();
+      if (!text) return;
+
+      addUserMessage(text);
+      prompt.value = "";
+
+      // fake AI reply for testing (replace with your API)
+      setTimeout(() => {
+        addAIMessage("This is SENTEN AI replying to you.");
+      }, 700);
+    });
+
+    // Auto-scroll when keyboard appears
     prompt.addEventListener("focus", () => {
-      document.getElementById("chatArea").scrollTop = chatArea.scrollHeight;
+      chatArea.scrollTop = chatArea.scrollHeight;
     });
   </script>
 
