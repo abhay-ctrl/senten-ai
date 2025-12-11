@@ -1,4 +1,4 @@
-* {
+* { 
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -6,27 +6,33 @@
 }
 
 body {
-    background: #eef2f5;
+    background: #d9dbdf; /* WhatsApp chat background */
     display: flex;
     flex-direction: column;
     height: 100vh;
+    overflow: hidden;
 }
 
+/* Header */
 .app-header {
     text-align: center;
-    padding: 10px;
-    background: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 12px;
+    background: #075E54; /* WhatsApp green */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 
+/* Chat container */
 .chat-container {
     flex: 1;
     overflow-y: auto;
-    padding: 15px;
-    margin-bottom: 65px;
+    padding: 12px;
+    padding-bottom: 80px; /* prevents overlap on mobile */
 }
 
-/* Chat bubbles */
+/* Message rows */
 .msg-row {
     display: flex;
     margin: 10px 0;
@@ -41,57 +47,115 @@ body {
     justify-content: flex-start;
 }
 
+/* Profile pictures */
 .dp {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    margin: 0 8px;
+    margin: 0 6px;
 }
 
+/* Chat bubbles */
 .bubble {
-    max-width: 70%;
-    padding: 10px 15px;
-    border-radius: 15px;
+    max-width: 75%;
+    padding: 10px 14px;
+    border-radius: 14px;
     font-size: 15px;
-    line-height: 1.4;
+    line-height: 1.45;
+    position: relative;
 }
 
+/* User bubble (right side) */
 .user .bubble {
-    background: #007bff;
-    color: white;
-    border-bottom-right-radius: 5px;
+    background: #DCF8C6; /* WhatsApp light green */
+    border-bottom-right-radius: 4px;
 }
 
+/* AI bubble (left side) */
 .ai .bubble {
-    background: white;
-    color: black;
-    border-bottom-left-radius: 5px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    background: #fff;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Tail bubble shape */
+.user .bubble::after {
+    content: "";
+    position: absolute;
+    right: -8px;
+    bottom: 0;
+    width: 12px;
+    height: 12px;
+    background: #DCF8C6;
+    border-bottom-right-radius: 6px;
+}
+
+.ai .bubble::after {
+    content: "";
+    position: absolute;
+    left: -8px;
+    bottom: 0;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-bottom-left-radius: 6px;
 }
 
 /* Input area */
 .input-area {
     position: fixed;
     bottom: 0;
+    left: 0;
     width: 100%;
-    background: white;
+    background: #ffffff;
     padding: 10px;
     display: flex;
     gap: 10px;
-    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+    align-items: center;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.15);
 }
 
+/* Text input */
 .input-area input {
     flex: 1;
     padding: 12px;
-    border-radius: 10px;
+    border-radius: 25px;
     border: 1px solid #ccc;
+    outline: none;
+    font-size: 15px;
 }
 
+/* Send button */
 .input-area button {
-    padding: 12px 20px;
+    padding: 12px 18px;
     border: none;
-    background: #007bff;
+    background: #25D366; /* WhatsApp send green */
     color: white;
-    border-radius: 10px;
+    font-size: 15px;
+    border-radius: 50%;
+    min-width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Smooth scroll */
+.chat-container {
+    scroll-behavior: smooth;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .bubble {
+        max-width: 85%;   /* bigger bubble space for small screens */
+    }
+
+    .app-header {
+        font-size: 16px;
+    }
+
+    .input-area input {
+        font-size: 14px;
+    }
 }
