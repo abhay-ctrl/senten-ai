@@ -1,64 +1,103 @@
-const sendBtn = document.getElementById("send");
-const input = document.getElementById("prompt");
-const chat = document.getElementById("chat-container");
+const promptInput = document.querySelector("#prompt");
+const submitBtn = document.querySelector("#submit");
+const chatContainer = document.querySelector(".chat-container");
 
-// ADD MESSAGE FUNCTION
-function addMessage(type, text, img) {
-    const row = document.createElement("div");
-    row.className = "msg-row " + type;
+const Api_URL =
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyAAyNRK6L9bIpwAb2qtG5GqrypfVHFtvx0";
 
-    const dp = document.createElement("img");
-    dp.src = img;
-    dp.className = "dp";
+// --------------------------
+// Add message to chat window
+// --------------------------
+function addMessage(message, sender) {
+  const messageBox = document.createElement("div");
+  messageBox.classList.add(sender === "user" ? "user-chat-box" : "ai-chat-box");
 
-    const bubble = document.createElement("div");
-    bubble.className = "bubble";
-    bubble.innerText = text;
+  const img = document.createElement("img");
+  img.src = sender === "user" ? "user.png" : "ai.png";
+  img.classList.add("dp");
 
-    if (type === "ai") {
-        row.append(dp, bubble);
-    } else {
-        row.append(bubble, dp);
-    }
+  const bubble = document.createElement("div");
+  bubble.classList.add(sender === "user" ? "user-chat-area" : "ai-chat-area");
+  bubble.innerHTML = message;
 
-    chat.appendChild(row);
-    chat.scrollTop = chat.scrollHeight;
+  messageBox.appendChild(img);
+  messageBox.appendChild(bubble);
+  chatContainer.appendChild(messageBox);
+
+  chatContainer.scrollTo({
+    top: chatContainer.scrollHeight,
+    behavior: "smooth",
+  });
 }
 
-// SEND HANDLER
-sendBtn.onclick = async () => {
-    const text = input.value.trim();
-    if (!text) return;
+// --------------------------
+// Send user message
+// --------------------------
+async function sendMessage() {
+  const text = promptInput.value.trim();
+  if (!text) return;
 
-    // User message
-    addMessage("user", text, "user.png");
-    input.value = "";
+  // Show user bubble
+  addMessage(text, "user");
+  promptInput.value = "";
 
-    // Show loading AI DP
-    const loadingRow = document.createElement("div");
-    loadingRow.className = "msg-row ai";
+  // Loader bubble
+  const loaderBox = document.createElement("div");
+  loaderBox.classList.add("ai-chat-box");
 
-    const loadingDp = document.createElement("img");
-    loadingDp.src = "loading.webp";
-    loadingDp.className = "dp";
+  const img = document.createElement("img");
+  img.src = "ai.png";
+  img.classList.add("dp");
 
-    const loadingBubble = document.createElement("div");
-    loadingBubble.className = "bubble";
-    loadingBubble.innerText = "Typing...";
+  const loader = document.createElement("div");
+  loader.classList.add("ai-chat-area");
+  loader.innerHTML = `<img src="loading.webp" width="50px">`;
 
-    loadingRow.append(loadingDp, loadingBubble);
-    chat.appendChild(loadingRow);
-    chat.scrollTop = chat.scrollHeight;
+  loaderBox.appendChild(img);
+  loaderBox.appendChild(loader);
+  chatContainer.appendChild(loaderBox);
 
-    // Wait 3 seconds
-    await new Promise(r => setTimeout(r, 3000));
+  chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: "smooth" });
 
-    // Remove loading
-    chat.removeChild(loadingRow);
+  await new Promise((res) => setTimeout(res, 1500)); // Wait for loading animation
 
-    // API CALL (replace with your API)
-    let aiReply = "This is SENTEN AI replying to you.";
+  // --------------- API CALL ---------------
+  try {
+    const response = await fetch(Api_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ role: "user", parts: [{ text: text }] }],
+      }),
+    });
 
-    // AI message
-    addMessage("ai", aiReply, "ai.png");
+    const data = await response.json();
+
+    const aiReply =
+      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "No response from API.";
+
+    loaderBox.remove(); // remove loader
+
+    addMessage(aiReply, "ai"); // show ai reply
+  } catch (err) {
+    loaderBox.remove();
+    addMessage("Error: Unable to reach AI server.", "ai");
+  }
+}
+
+// --------------------------
+// Events
+// --------------------------
+submitBtn.addEventListener("click", sendMessage);
+
+promptInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendMessage();
+});
+
+// --------------------------
+// Welcome message
+// --------------------------
+window.onload = () => {
+  addMessage("Hello! I am SENTEN AI. How can I assist you today?", "ai");
 };
