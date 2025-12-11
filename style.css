@@ -1,27 +1,30 @@
-* { 
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Orbitron', 'Roboto Mono', sans-serif;
 }
 
 body {
-    background: #d9dbdf; /* WhatsApp chat background */
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
     display: flex;
     flex-direction: column;
     height: 100vh;
     overflow: hidden;
+    color: #e0e0e0;
 }
 
 /* Header */
 .app-header {
     text-align: center;
     padding: 12px;
-    background: #075E54; /* WhatsApp green */
-    color: white;
+    background: rgba(20, 20, 40, 0.9);
+    color: #00fff0;
     font-size: 18px;
     font-weight: bold;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 12px rgba(0,255,255,0.2);
 }
 
 /* Chat container */
@@ -29,7 +32,8 @@ body {
     flex: 1;
     overflow-y: auto;
     padding: 12px;
-    padding-bottom: 80px; /* prevents overlap on mobile */
+    padding-bottom: 80px;
+    scroll-behavior: smooth;
 }
 
 /* Message rows */
@@ -53,53 +57,50 @@ body {
     height: 36px;
     border-radius: 50%;
     margin: 0 6px;
+    border: 2px solid #00fff0;
 }
 
 /* Chat bubbles */
 .bubble {
     max-width: 75%;
-    padding: 10px 14px;
-    border-radius: 14px;
+    padding: 12px 16px;
+    border-radius: 18px;
     font-size: 15px;
     line-height: 1.45;
     position: relative;
+    backdrop-filter: blur(10px);
+    color: #e0e0e0;
 }
 
-/* User bubble (right side) */
+/* User bubble */
 .user .bubble {
-    background: #DCF8C6; /* WhatsApp light green */
+    background: rgba(0,255,182,0.2);
+    border: 1px solid #00ffb6;
     border-bottom-right-radius: 4px;
+    box-shadow: 0 0 10px #00ffb6;
 }
 
-/* AI bubble (left side) */
+/* AI bubble */
 .ai .bubble {
-    background: #fff;
+    background: rgba(0,0,0,0.6);
+    border: 1px solid #00fff0;
     border-bottom-left-radius: 4px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px #00fff0;
 }
 
-/* Tail bubble shape */
-.user .bubble::after {
-    content: "";
-    position: absolute;
-    right: -8px;
-    bottom: 0;
-    width: 12px;
-    height: 12px;
-    background: #DCF8C6;
-    border-bottom-right-radius: 6px;
-}
-
+/* Bubble tails */
+.user .bubble::after,
 .ai .bubble::after {
     content: "";
     position: absolute;
-    left: -8px;
     bottom: 0;
     width: 12px;
     height: 12px;
-    background: #fff;
-    border-bottom-left-radius: 6px;
+    background: inherit;
 }
+
+.user .bubble::after { right: -8px; border-bottom-right-radius: 6px; }
+.ai .bubble::after { left: -8px; border-bottom-left-radius: 6px; }
 
 /* Input area */
 .input-area {
@@ -107,12 +108,13 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: #ffffff;
+    background: rgba(20,20,40,0.9);
     padding: 10px;
     display: flex;
     gap: 10px;
     align-items: center;
-    box-shadow: 0 -2px 4px rgba(0,0,0,0.15);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 -2px 10px rgba(0,255,255,0.2);
 }
 
 /* Text input */
@@ -120,17 +122,19 @@ body {
     flex: 1;
     padding: 12px;
     border-radius: 25px;
-    border: 1px solid #ccc;
+    border: 1px solid #00fff0;
     outline: none;
     font-size: 15px;
+    background: rgba(0,0,0,0.5);
+    color: #e0e0e0;
 }
 
 /* Send button */
 .input-area button {
-    padding: 12px 18px;
+    padding: 12px;
     border: none;
-    background: #25D366; /* WhatsApp send green */
-    color: white;
+    background: #00fff0;
+    color: #000;
     font-size: 15px;
     border-radius: 50%;
     min-width: 45px;
@@ -138,24 +142,19 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 0 10px #00fff0;
+    animation: pulse 2s infinite;
 }
 
-/* Smooth scroll */
-.chat-container {
-    scroll-behavior: smooth;
+@keyframes pulse {
+    0% { box-shadow: 0 0 5px #00fff0; }
+    50% { box-shadow: 0 0 20px #00fff0; }
+    100% { box-shadow: 0 0 5px #00fff0; }
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 480px) {
-    .bubble {
-        max-width: 85%;   /* bigger bubble space for small screens */
-    }
-
-    .app-header {
-        font-size: 16px;
-    }
-
-    .input-area input {
-        font-size: 14px;
-    }
+    .bubble { max-width: 85%; }
+    .app-header { font-size: 16px; }
+    .input-area input { font-size: 14px; }
 }
