@@ -5,6 +5,7 @@
 const promptInput = document.getElementById("prompt");   // FIXED
 const submitBtn = document.getElementById("submit");     // FIXED
 const chatContainer = document.querySelector(".chat-container");
+const themeSwitch = document.getElementById("themeSwitch");
 
 const Api_URL =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyAAyNRK6L9bIpwAb2qtG5GqrypfVHFtvx0";
@@ -34,6 +35,23 @@ function addMessage(message, sender) {
     behavior: "smooth",
   });
 }
+
+// Load stored theme on page load
+if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+    themeSwitch.checked = true;
+}
+
+// Toggle theme on click
+themeSwitch.addEventListener("change", () => {
+    if (themeSwitch.checked) {
+        document.body.classList.add("dark-mode");
+        localStorage.setItem("theme", "dark");
+    } else {
+        document.body.classList.remove("dark-mode");
+        localStorage.setItem("theme", "light");
+    }
+});
 
 // --------------------------
 // Main Function: send message
@@ -113,3 +131,4 @@ promptInput.addEventListener("keydown", function (e) {
 window.onload = () => {
   addMessage("Hello! I am SENTEN AI. How can I help you today?", "ai");
 };
+
