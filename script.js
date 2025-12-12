@@ -7,7 +7,7 @@ const submitBtn = document.getElementById("submit");     // FIXED
 const chatContainer = document.querySelector(".chat-container");
 
 const Api_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyBbIO_vfAiaYx8GWL_GOalcgUEa5kTgrqs";
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyBMnLKDFzkX5VCz9HJ5w8bTTAvQGQ0uEV4";
 
 // --------------------------
 // Add message to chat window
@@ -113,4 +113,5 @@ promptInput.addEventListener("keydown", function (e) {
 window.onload = () => {
   addMessage("Hello! I am SENTEN AI. How can I help you today?", "ai");
 };
+
 
