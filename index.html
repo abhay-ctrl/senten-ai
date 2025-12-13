@@ -8,10 +8,19 @@
 </head>
 <body>
 
-    <div class="app-header">
+    <!-- Glass Background Layer (must be at top) -->
+    <div class="glass-bg"></div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <input type="checkbox" id="themeSwitch">
+        <label for="themeSwitch" class="toggle-label">🌙</label>
+    </div>
+
+    <header class="app-header">
         <h2>SENTEN AI</h2>
         <p>Developed by Abhay Gupta</p>
-    </div>
+    </header>
 
     <div class="chat-container" id="chat-container"></div>
 
