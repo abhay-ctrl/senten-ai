@@ -1,13 +1,13 @@
 // =========================
-// SENTEN AI – FINAL SCRIPT
+// SENTEN AI – FINAL SCRIPT (SECURE)
 // =========================
 
-const promptInput = document.getElementById("prompt");   // FIXED
-const submitBtn = document.getElementById("submit");     // FIXED
+const promptInput = document.getElementById("prompt");
+const submitBtn = document.getElementById("submit");
 const chatContainer = document.querySelector(".chat-container");
 
-const Api_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyBMnLKDFzkX5VCz9HJ5w8bTTAvQGQ0uEV4";
+// IMPORTANT: Backend endpoint (NO API KEY here)
+const API_URL = "/api/gemini";
 
 // --------------------------
 // Add message to chat window
@@ -22,11 +22,10 @@ function addMessage(message, sender) {
 
   const bubble = document.createElement("div");
   bubble.classList.add(sender === "user" ? "user-chat-area" : "ai-chat-area");
-  bubble.innerHTML = message;
+  bubble.innerText = message;
 
   box.appendChild(img);
   box.appendChild(bubble);
-
   chatContainer.appendChild(box);
 
   chatContainer.scrollTo({
@@ -36,7 +35,7 @@ function addMessage(message, sender) {
 }
 
 // --------------------------
-// Main Function: send message
+// Main Function
 // --------------------------
 async function sendMessage() {
   const text = promptInput.value.trim();
@@ -45,7 +44,7 @@ async function sendMessage() {
   addMessage(text, "user");
   promptInput.value = "";
 
-  // Loader box
+  // Loader
   const loaderBox = document.createElement("div");
   loaderBox.classList.add("ai-chat-box");
 
@@ -55,7 +54,7 @@ async function sendMessage() {
 
   const loader = document.createElement("div");
   loader.classList.add("ai-chat-area");
-  loader.innerHTML = `<img src="loading.webp" width="50px">`;
+  loader.innerHTML = `<img src="loading.webp" width="40">`;
 
   loaderBox.appendChild(aiImg);
   loaderBox.appendChild(loader);
@@ -63,46 +62,35 @@ async function sendMessage() {
 
   chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: "smooth" });
 
-  // Wait loader animate
-  await new Promise((res) => setTimeout(res, 1200));
-
-  // CALL API
   try {
-    const response = await fetch(Api_URL, {
+    const response = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ role: "user", parts: [{ text: text }] }],
-      }),
+      body: JSON.stringify({ text }),
     });
 
     const data = await response.json();
 
     const reply =
       data.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "No response from API.";
+      "No response from AI.";
 
     loaderBox.remove();
     addMessage(reply, "ai");
-  } catch (err) {
+  } catch (error) {
     loaderBox.remove();
-    addMessage("Error: Could not connect to SENTEN AI server.", "ai");
+    addMessage("Server error. Please try again.", "ai");
   }
 }
 
 // --------------------------
-// Click Send Button
+// Events
 // --------------------------
-submitBtn.addEventListener("click", function () {
-  sendMessage();
-});
+submitBtn.addEventListener("click", sendMessage);
 
-// --------------------------
-// ENTER Key Fix (Laptop + PC)
-// --------------------------
-promptInput.addEventListener("keydown", function (e) {
+promptInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    e.preventDefault();  // IMPORTANT FIX
+    e.preventDefault();
     sendMessage();
   }
 });
@@ -113,5 +101,3 @@ promptInput.addEventListener("keydown", function (e) {
 window.onload = () => {
   addMessage("Hello! I am SENTEN AI. How can I help you today?", "ai");
 };
-
-
