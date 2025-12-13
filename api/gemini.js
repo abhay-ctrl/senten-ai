@@ -4,22 +4,35 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { text } = req.body;
+    const { contents } = req.body;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" +
+        process.env.GEMINI_API_KEY,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ role: "user", parts: [{ text }] }],
-        }),
+        body: JSON.stringify({ contents }),
       }
     );
 
     const data = await response.json();
-    res.status(200).json(data);
+
+    const reply =
+      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "Gemini returned no reply";
+
+    // IMPORTANT: return SAME STRUCTURE frontend expects
+    res.status(200).json({
+      candidates: [
+        {
+          content: {
+            parts: [{ text: reply }],
+          },
+        },
+      ],
+    });
   } catch (error) {
-    res.status(500).json({ error: "Gemini API failed" });
+    res.status(500).json({ error: error.message });
   }
 }
