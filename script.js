@@ -4,6 +4,7 @@ const chatContainer = document.getElementById("chat-container");
 const themeSwitch = document.getElementById("themeSwitch");
 
 const Api_URL = "/api/gemini";
+
 // ------------------------------------------------------
 // AUTO-SCROLL WITH SMOOTH ANIMATION
 // ------------------------------------------------------
