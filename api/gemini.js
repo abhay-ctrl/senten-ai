@@ -22,7 +22,6 @@ export default async function handler(req, res) {
       data.candidates?.[0]?.content?.parts?.[0]?.text ||
       "Gemini returned no reply";
 
-    // IMPORTANT: return SAME STRUCTURE frontend expects
     res.status(200).json({
       candidates: [
         {
