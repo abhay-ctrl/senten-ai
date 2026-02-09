@@ -1,1 +1,2 @@
-SENTEL AI
+Mindsense-ai
+
