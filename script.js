@@ -130,5 +130,6 @@ promptInput.addEventListener("keydown", (e) => {
 // WELCOME MESSAGE
 // ------------------------------------------------------
 window.onload = () => {
-  addMessage("Hello! I am SENTEN AI. How can I help you today?", "ai");
+  addMessage("Hello! I am Mindsense AI. How can I help you today?", "ai");
 };
+
