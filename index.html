@@ -9,8 +9,11 @@
 
 <body>
 
-<!-- ☰ Menu Button -->
-<img src="threeline.png" id="menuBtn" class="menu-btn">
+<!-- LEFT CONTROL PANEL -->
+<div class="left-controls">
+  <button id="logoutBtn" class="logout-btn">Logout</button>
+  <img src="threeline.png" id="menuBtn" class="menu-btn">
+</div>
 
 <!-- Sidebar -->
 <div id="sidebar" class="sidebar">
@@ -22,7 +25,7 @@
 <!-- Glass Background -->
 <div class="glass-bg"></div>
 
-<!-- Theme Toggle -->
+<!-- Theme Toggle (RIGHT SIDE) -->
 <div class="theme-toggle">
   <input type="checkbox" id="themeSwitch">
   <label for="themeSwitch" class="toggle-label">🌙</label>
@@ -32,7 +35,6 @@
 <header class="app-header">
   <h2>Mindsense AI</h2>
   <p>Developed by Abhay Gupta, Saksham Gupta</p>
-  <button id="logoutBtn" class="logout-btn">Logout</button>
 </header>
 
 <!-- Chat Container -->
@@ -70,7 +72,7 @@ document.getElementById("logoutBtn").onclick = () => {
 };
 </script>
 
-<!-- Sidebar Toggle JS -->
+<!-- Sidebar Toggle -->
 <script>
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");
@@ -78,7 +80,7 @@ const sidebar = document.getElementById("sidebar");
 menuBtn.onclick = () => {
   sidebar.classList.toggle("open");
 };
-</️</script>
+</script>
 
 <!-- Chat Logic -->
 <script src="script.js"></script>
