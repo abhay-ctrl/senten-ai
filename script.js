@@ -15,12 +15,12 @@ function scrollToBottom() {
   });
 }
 
-let sidebar = document.getElementById("sidebar");
-let menuBtn = document.getElementById("menuBtn");
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
 
-menuBtn.onclick = function() {
+menuBtn.onclick = () => {
   if (sidebar.style.left === "0px") {
-    sidebar.style.left = "-250px";
+    sidebar.style.left = "-220px";
   } else {
     sidebar.style.left = "0px";
   }
@@ -143,5 +143,6 @@ promptInput.addEventListener("keydown", (e) => {
 window.onload = () => {
   addMessage("Hello! I am Mindsense AI. How can I help you today?", "ai");
 };
+
 
 
