@@ -1,13 +1,15 @@
+// ================== DOM ELEMENTS ==================
 const promptInput = document.getElementById("prompt");
 const submitBtn = document.getElementById("submit");
 const chatContainer = document.getElementById("chat-container");
 const themeSwitch = document.getElementById("themeSwitch");
 
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+
 const Api_URL = "/api/gemini";
 
-// ------------------------------------------------------
-// AUTO-SCROLL WITH SMOOTH ANIMATION
-// ------------------------------------------------------
+// ================== AUTO SCROLL ==================
 function scrollToBottom() {
   chatContainer.scrollTo({
     top: chatContainer.scrollHeight,
@@ -15,36 +17,30 @@ function scrollToBottom() {
   });
 }
 
-const menuBtn = document.getElementById("menuBtn");
-const sidebar = document.getElementById("sidebar");
+// ================== SIDEBAR TOGGLE ==================
+menuBtn.addEventListener("click", () => {
+  sidebar.classList.toggle("sidebar-open");
+});
 
-menuBtn.onclick = () => {
-  if (sidebar.style.left === "0px") {
-    sidebar.style.left = "-220px";
-  } else {
-    sidebar.style.left = "0px";
+// Close sidebar when clicking outside
+document.addEventListener("click", (e) => {
+  if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+    sidebar.classList.remove("sidebar-open");
   }
-};
+});
 
-// ------------------------------------------------------
-// ADD MESSAGE TO CHAT (USER + AI)
-// ------------------------------------------------------
+// ================== ADD CHAT MESSAGE ==================
 function addMessage(message, sender) {
   const box = document.createElement("div");
-  box.classList.add(sender === "user" ? "user-chat-box" : "ai-chat-box");
+  box.className = sender === "user" ? "user-chat-box" : "ai-chat-box";
 
   const img = document.createElement("img");
-  img.classList.add("dp");
-  img.src = sender === "user" ? "user.png" : "ai.png";
+  img.className = "dp";
+  img.src = sender === "user" ? "user.png" : "ai.png"; // change paths if needed
 
   const bubble = document.createElement("div");
-  bubble.classList.add(sender === "user" ? "user-chat-area" : "ai-chat-area");
-
-  // Prevent long-message breaking layout
-  bubble.style.wordBreak = "break-word";
-  bubble.style.whiteSpace = "pre-wrap";
-
-  bubble.innerHTML = message;
+  bubble.className = sender === "user" ? "user-chat-area" : "ai-chat-area";
+  bubble.textContent = message; // safer than innerHTML
 
   box.appendChild(img);
   box.appendChild(bubble);
@@ -53,30 +49,19 @@ function addMessage(message, sender) {
   scrollToBottom();
 }
 
-// ------------------------------------------------------
-// LOAD SAVED THEME
-// ------------------------------------------------------
+// ================== LOAD SAVED THEME ==================
 if (localStorage.getItem("theme") === "dark") {
   document.body.classList.add("dark-mode");
   themeSwitch.checked = true;
 }
 
-// ------------------------------------------------------
-// THEME TOGGLE
-// ------------------------------------------------------
+// ================== THEME SWITCH ==================
 themeSwitch.addEventListener("change", () => {
-  if (themeSwitch.checked) {
-    document.body.classList.add("dark-mode");
-    localStorage.setItem("theme", "dark");
-  } else {
-    document.body.classList.remove("dark-mode");
-    localStorage.setItem("theme", "light");
-  }
+  document.body.classList.toggle("dark-mode", themeSwitch.checked);
+  localStorage.setItem("theme", themeSwitch.checked ? "dark" : "light");
 });
 
-// ------------------------------------------------------
-// MAIN FUNCTION — SEND MESSAGE
-// ------------------------------------------------------
+// ================== SEND MESSAGE ==================
 async function sendMessage() {
   const text = promptInput.value.trim();
   if (!text) return;
@@ -84,19 +69,13 @@ async function sendMessage() {
   addMessage(text, "user");
   promptInput.value = "";
 
-  // ------------------------------------------------------
-  // TYPING LOADER WITH SMOOTH AUTO-SCROLL
-  // ------------------------------------------------------
+  // Loading bubble
   const loaderBox = document.createElement("div");
-  loaderBox.classList.add("ai-chat-box");
-
+  loaderBox.className = "ai-chat-box";
   loaderBox.innerHTML = `
     <img src="ai.png" class="dp">
-    <div class="ai-chat-area">
-        <img src="loading.webp" width="45px">
-    </div>
+    <div class="ai-chat-area typing">Typing...</div>
   `;
-
   chatContainer.appendChild(loaderBox);
   scrollToBottom();
 
@@ -105,44 +84,33 @@ async function sendMessage() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        contents: [{ role: "user", parts: [{ text: text }] }],
+        contents: [{ role: "user", parts: [{ text }] }],
       }),
     });
 
     const data = await response.json();
     const reply =
-      data.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "No response from API.";
+      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "No response from server.";
 
     loaderBox.remove();
     addMessage(reply, "ai");
-  } catch (err) {
+  } catch (error) {
     loaderBox.remove();
-    addMessage("Error: Could not connect to SENTEN AI server.", "ai");
+    addMessage("⚠ Error: Could not connect to Mindsense AI server.", "ai");
+    console.error(error);
   }
 }
 
-// ------------------------------------------------------
-// SEND BUTTON
-// ------------------------------------------------------
+// ================== BUTTON SEND ==================
 submitBtn.addEventListener("click", sendMessage);
 
-// ------------------------------------------------------
-// ENTER KEY SUPPORT
-// ------------------------------------------------------
+// ================== ENTER KEY SEND ==================
 promptInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    sendMessage();
-  }
+  if (e.key === "Enter") sendMessage();
 });
 
-// ------------------------------------------------------
-// WELCOME MESSAGE
-// ------------------------------------------------------
-window.onload = () => {
+// ================== WELCOME MESSAGE ==================
+window.addEventListener("load", () => {
   addMessage("Hello! I am Mindsense AI. How can I help you today?", "ai");
-};
-
-
-
+});
