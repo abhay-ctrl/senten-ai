@@ -6,6 +6,15 @@
   font-family: "Poppins", sans-serif;
 }
 
+.sidebar {
+  left: -220px;
+  transition: 0.3s;
+}
+
+.sidebar-open {
+  left: 0px !important;
+}
+
 /* ================= LEFT CONTROLS ================= */
 .left-controls {
   position: fixed;
@@ -282,4 +291,5 @@ body.dark-mode #prompt {
     padding: 6px;
   }
 }
+
 
