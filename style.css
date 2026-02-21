@@ -251,6 +251,20 @@ body.dark-mode #prompt {
   font-size: 22px;
 }
 
+.ai-chat-box {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 14px;
+  align-items: flex-start;
+}
+
+.user-chat-box {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
 /* ================= ANIMATION ================= */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
@@ -268,3 +282,4 @@ body.dark-mode #prompt {
     padding: 6px;
   }
 }
+
