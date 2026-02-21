@@ -6,6 +6,42 @@
   font-family: "Poppins", sans-serif;
 }
 
+/* Menu Button */
+.menu-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  width: 40px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 200px;
+  height: 100%;
+  background: #0b0f19;
+  padding-top: 60px;
+  transition: 0.3s;
+  box-shadow: 2px 0 20px rgba(0,0,0,0.5);
+}
+
+.sidebar a {
+  display: block;
+  padding: 15px;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.sidebar a:hover {
+  background: #00eaff;
+  color: black;
+}
+
 /* =============================== */
 /*  BACKGROUND LAYERS              */
 /* =============================== */
@@ -235,5 +271,6 @@ body.dark-mode #prompt {
   background: rgba(255,255,255,0.25);
   transform: scale(1.05);
 }
+
 
 
