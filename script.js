@@ -15,6 +15,17 @@ function scrollToBottom() {
   });
 }
 
+let sidebar = document.getElementById("sidebar");
+let menuBtn = document.getElementById("menuBtn");
+
+menuBtn.onclick = function() {
+  if (sidebar.style.left === "0px") {
+    sidebar.style.left = "-250px";
+  } else {
+    sidebar.style.left = "0px";
+  }
+};
+
 // ------------------------------------------------------
 // ADD MESSAGE TO CHAT (USER + AI)
 // ------------------------------------------------------
@@ -132,4 +143,5 @@ promptInput.addEventListener("keydown", (e) => {
 window.onload = () => {
   addMessage("Hello! I am Mindsense AI. How can I help you today?", "ai");
 };
+
 
