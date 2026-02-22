@@ -11,8 +11,8 @@
   transition: 0.3s;
 }
 
-.sidebar-open {
-  left: 0px !important;
+.sidebar.open {
+  left: 0;
 }
 
 /* ================= LEFT CONTROLS ================= */
@@ -291,5 +291,6 @@ body.dark-mode #prompt {
     padding: 6px;
   }
 }
+
 
 
